@@ -35,12 +35,7 @@
       </p>
 
       <h5 class="mt-3">Sobre a aplicação</h5>
-      <p>
-        Essa aplicação foi desenvolvida com fins de consolidar conhecimentos de
-        desenvolvimento web, interações com bancos de dados e afins, abaixo
-        segue alguns links para caso você queira ver o código fonte dessa
-        dashboard ou conhecer seu desenvolvedor
-      </p>
+      <p>Essa aplicação foi desenvolvida com fins de tralalalalalalala</p>
       <ul class="p-2 ml-5">
         <li>
           <a
