@@ -6,7 +6,7 @@
 
     <div class="view-content">
       <h1 class="text-bold">
-        Bem vindo ao <span class="text-primary">KapaKamael</span>!
+        Bem vindo a <span class="text-primary">KapaKamael</span>!
       </h1>
       <h5 class="mb-1">
         Abaixo segue algumas instruções pra você utilizar a aplicação.

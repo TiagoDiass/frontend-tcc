@@ -5,7 +5,7 @@
     <div id="nav">
       <a @click="navigateTo('Home')"><i class="fas fa-home" /> Home</a>
 
-      <a> <i class="fas fa-dog" /> Animais</a>
+      <a @click="navigateTo('Animals')"> <i class="fas fa-dog" /> Animais</a>
       <a> <i class="fas fa-paw" /> Adoções</a>
       <a> <i class="fas fa-people-carry" /> Voluntários</a>
       <a> <i class="fas fa-capsules" /> Medicamentos</a>
