@@ -3,7 +3,9 @@
     <Sidebar />
 
     <div id="content-container">
-      <router-view />
+      <transition name="slide" mode="out-in">
+        <router-view />
+      </transition>
     </div>
   </div>
 </template>

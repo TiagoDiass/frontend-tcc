@@ -1,0 +1,32 @@
+.btn {
+  text-transform: uppercase;
+  font-weight: 600;
+
+  &.disabled {
+    cursor: initial;
+
+    &:focus {
+      box-shadow: none !important;
+    }
+
+    &:active {
+      box-shadow: none !important;
+    }
+  }
+
+  &.btn-secondary {
+    color: white;
+
+    &:hover {
+      color: white;
+    }
+  }
+
+  &.btn-warning {
+    color: white;
+
+    &:active {
+      color: white !important;
+    }
+  }
+}

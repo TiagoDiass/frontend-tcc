@@ -1,6 +1,8 @@
 /* SCSS modules */
 @import 'theme.scss';
 @import 'bootstrap.scss';
+@import 'bootstrap_overwrite.scss';
+@import 'animations.scss';
 
 /* Font Imports */
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap');
