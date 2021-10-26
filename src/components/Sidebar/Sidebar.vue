@@ -1,6 +1,6 @@
 <template>
   <div id="sidebar">
-    <h2 class="logo"><span class="light">Front</span>TCC</h2>
+    <h2 class="logo"><span class="light">Kapa</span>Kamael</h2>
 
     <div id="nav">
       <a @click="navigateTo('Home')"><i class="fas fa-home" /> Home</a>
