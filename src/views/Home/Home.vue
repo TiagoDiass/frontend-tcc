@@ -2,7 +2,6 @@
   <div class="home view">
     <div class="view-header">
       <h1>Home</h1>
-      <hr />
     </div>
 
     <div class="view-content">
