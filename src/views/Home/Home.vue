@@ -5,7 +5,7 @@
     </div>
 
     <div class="view-content">
-      <h1 class="text-bold">
+      <h1 class="text-bold text-uppercase">
         Bem vindo a <span class="text-primary">KapaKamael</span>!
       </h1>
       <h5 class="mb-1">
