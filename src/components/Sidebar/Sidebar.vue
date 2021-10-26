@@ -19,7 +19,9 @@
 </template>
 
 <script lang="ts">
-export default {
+import Vue from 'vue';
+
+export default Vue.extend({
   name: 'sidebar',
 
   methods: {
@@ -27,7 +29,7 @@ export default {
       this.$router.push({ name });
     },
   },
-};
+});
 </script>
 
 <style lang="scss" src="./Sidebar.scss" />
