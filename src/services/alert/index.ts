@@ -53,6 +53,7 @@ const question = async ({
     cancelButtonColor: 'var(--danger)',
     focusCancel: focusCancelButton,
     confirmButtonText,
+    reverseButtons: true,
   });
 
   return {
