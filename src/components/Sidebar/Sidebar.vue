@@ -1,28 +1,35 @@
 <template>
-  <div id="sidebar">
+  <div
+    id="sidebar"
+    data-testid="sidebar"
+    aria-label="Barra de navegação lateral"
+  >
     <h2 class="logo"><span class="light">Kapa</span>Kamael</h2>
 
-    <div id="nav">
-      <a @click="navigateTo('Home')"><i class="fas fa-home" /> Home</a>
+    <button>Shit</button>
 
-      <a @click="navigateTo('Animals')"> <i class="fas fa-dog" /> Animais</a>
-      <a> <i class="fas fa-paw" /> Adoções</a>
-      <a> <i class="fas fa-people-carry" /> Voluntários</a>
-      <a> <i class="fas fa-capsules" /> Medicamentos</a>
-      <a> <i class="fas fa-life-ring" /> Casos de ajuda</a>
-      <a> <i class="fas fa-hand-holding-heart" /> Serviços</a>
-      <a> <i class="fas fa-clinic-medical" /> Clínicas parceiras</a>
-      <a> <i class="fas fa-money-check-alt" /> Transações</a>
-      <a> <i class="fas fa-box-open" /> Produtos</a>
+    <div id="nav">
+      <a
+        v-for="option in sidebarOptions"
+        :key="option.routeName"
+        @click="navigateTo(option.routeName)"
+      >
+        <i :class="`fas ${option.iconClass}`" /> {{ option.label }}
+      </a>
     </div>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
+import sidebarOptions from './sidebarOptions';
 
 export default Vue.extend({
   name: 'sidebar',
+
+  computed: {
+    sidebarOptions: () => sidebarOptions,
+  },
 
   methods: {
     navigateTo(name: string): void {
