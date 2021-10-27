@@ -12,9 +12,7 @@
 
     <div class="view-content d-flex flex-column" style="row-gap: 12px">
       <h1>shit shit</h1>
-      <button class="btn btn-info" @click="launchAlert1">
-        lançar alerta questão
-      </button>
+      <Button type="info" @click="launchAlert1"> lançar alerta questão</Button>
       <button class="btn btn-info" @click="launchAlert2">
         lançar alerta sucesso
       </button>
@@ -27,10 +25,14 @@
 
 <script lang="ts">
 import Vue from 'vue';
-// import swal from 'sweetalert2';
 import alert from '@/services/alert';
+import { Button } from '@/components';
 
 export default Vue.extend({
+  components: {
+    Button,
+  },
+
   methods: {
     async launchAlert1() {
       const { answer } = await alert.question({
