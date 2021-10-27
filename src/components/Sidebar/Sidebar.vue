@@ -6,8 +6,6 @@
   >
     <h2 class="logo"><span class="light">Kapa</span>Kamael</h2>
 
-    <button>Shit</button>
-
     <div id="nav">
       <a
         v-for="option in sidebarOptions"
