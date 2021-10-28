@@ -1,4 +1,3 @@
-import '@testing-library/jest-dom';
 import ComponentToTestModal from './ComponentToTestModal.vue';
 import { render, screen } from '@testing-library/vue';
 

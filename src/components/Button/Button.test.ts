@@ -1,5 +1,4 @@
 import Button from './Button.vue';
-import '@testing-library/jest-dom';
 import { render, screen } from '@testing-library/vue';
 
 describe('Component: Button', () => {
