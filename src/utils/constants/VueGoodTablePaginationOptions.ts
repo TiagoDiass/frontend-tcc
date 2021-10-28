@@ -1,0 +1,15 @@
+export const VueGoodTablePaginationOptions = {
+  enabled: true,
+  mode: 'records',
+  perPage: 8,
+  position: 'bottom',
+  perPageDropdown: [4, 8, 16],
+  dropdownAllowAll: false,
+  setCurrentPage: 1,
+  nextLabel: 'Próxima',
+  prevLabel: 'Anterior',
+  rowsPerPageLabel: 'Registros por página',
+  ofLabel: 'de',
+  pageLabel: 'page',
+  allLabel: 'Todos',
+};
