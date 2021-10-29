@@ -10,7 +10,13 @@
       </p>
     </div>
 
-    <div class="view-content">
+    <div
+      v-if="isLoading"
+      class="view-content d-flex justify-content-center align-items-center"
+    >
+      <LoadingSpinner />
+    </div>
+    <div v-else class="view-content">
       <Button type="primary" class="w-100">Cadastrar Animal</Button>
 
       <VueGoodTable
@@ -40,6 +46,10 @@
         ]"
         :pagination-options="paginationOptions"
       >
+        <p slot="emptystate" class="text-center m-0">
+          Nenhum animal encontrado
+        </p>
+
         <template slot="table-row" slot-scope="props">
           <div v-if="props.column.field === 'after'">
             <span>ACTIONS</span>
@@ -76,43 +86,39 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 import 'vue-good-table/dist/vue-good-table.css';
 import Vue from 'vue';
-import { Button, Modal } from '@/components';
-import { APIAnimal } from '@/@types/Animals';
+import { Button, Modal, LoadingSpinner } from '@/components';
 import { VueGoodTablePaginationOptions } from '@/utils/constants/VueGoodTablePaginationOptions';
+import { mapActions, mapGetters } from 'vuex';
 
 export default Vue.extend({
   components: {
     Button,
     Modal,
     VueGoodTable: require('vue-good-table').VueGoodTable,
+    LoadingSpinner,
+  },
+
+  mounted() {
+    this.fetchAnimals();
   },
 
   data: () => ({
     paginationOptions: VueGoodTablePaginationOptions,
     isModalVisible: false,
-    animals: [
-      {
-        id: '8880a8d5-c158-47e6-a3a8-2f0f6ed827f3',
-        name: 'twister',
-        type: 'cat',
-        size: 'P',
-        gender: 'M',
-        pictureUrl:
-          'https://images.unsplash.com/photo-1518791841217-8f162f1e1131?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwxfDB8MXxyYW5kb218MHx8Y2F0fHx8fHx8MTYzMjkxNjQ3Nw&ixlib=rb-1.2.1&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=1080',
-      },
-      {
-        id: '1cafbb52-c964-4e24-af09-46cc988a93b8',
-        name: 'dudu',
-        type: 'dog',
-        size: 'P',
-        gender: 'M',
-        pictureUrl:
-          'https://images.unsplash.com/photo-1583511666372-62fc211f8377?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=450&ixid=MnwxfDB8MXxyYW5kb218MHx8ZG9nfHx8fHx8MTYzMjkxNjIwMw&ixlib=rb-1.2.1&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=450',
-      },
-    ] as APIAnimal[],
   }),
 
-  methods: {},
+  computed: {
+    ...mapGetters({
+      animals: 'animals/getAnimals',
+      isLoading: 'animals/getIsLoading',
+    }),
+  },
+
+  methods: {
+    ...mapActions({
+      fetchAnimals: 'animals/fetchAnimals',
+    }),
+  },
 });
 </script>
 
