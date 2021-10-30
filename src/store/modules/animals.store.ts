@@ -1,6 +1,7 @@
 import { Animal } from '@/@types/Animals';
+import { animalsRequests } from '@/services/api/requests';
+import { convertAPIAnimalsToAnimals } from '@/utils/converters';
 import { Module } from 'vuex';
-import { mockAnimals } from './mock';
 
 type AnimalsModuleState = {
   animals: Animal[];
@@ -26,10 +27,10 @@ const animalsModule: Module<AnimalsModuleState, null> = {
     async fetchAnimals({ commit }) {
       commit('setIsLoading', true);
 
-      setTimeout(() => {
-        commit('setAnimals', mockAnimals);
-        commit('setIsLoading', false);
-      }, 2000);
+      const response = await animalsRequests.getAll();
+
+      commit('setAnimals', convertAPIAnimalsToAnimals(response.data.data));
+      commit('setIsLoading', false);
     },
   },
 
