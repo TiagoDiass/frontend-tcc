@@ -1,5 +1,6 @@
 import Button from './Button.vue';
-import { render, screen } from '@testing-library/vue';
+import { render, screen, waitFor } from '@testing-library/vue';
+import userEvent from '@testing-library/user-event';
 
 describe('Component: Button', () => {
   it('should render correctly', () => {
@@ -20,5 +21,15 @@ describe('Component: Button', () => {
     });
 
     expect(screen.getByRole('button')).toHaveClass('btn', 'btn-primary');
+  });
+
+  it('should handleClick correctly', async () => {
+    const { emitted } = render(Button, {
+      slots: { default: 'Meu botão' },
+    });
+
+    userEvent.click(screen.getByRole('button'));
+
+    await waitFor(() => expect(emitted()).toHaveProperty('click'));
   });
 });
