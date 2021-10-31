@@ -1,7 +1,6 @@
 <template>
   <SlideYUpTransition :duration="animationDuration">
     <div
-      @click.self="closeModal"
       :data-testid="testId"
       class="modal fade"
       :class="{ 'show d-block': isVisible }"
@@ -68,24 +67,6 @@ export default Vue.extend({
   computed: {
     modalSizeClass(): string {
       return `modal-${this.size}`;
-    },
-  },
-
-  methods: {
-    closeModal() {
-      this.$emit('update:show', false);
-      this.$emit('close');
-    },
-  },
-
-  watch: {
-    show(val) {
-      let documentClasses = document.body.classList;
-      if (val) {
-        documentClasses.add('modal-open');
-      } else {
-        documentClasses.remove('modal-open');
-      }
     },
   },
 });
