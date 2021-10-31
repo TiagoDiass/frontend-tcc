@@ -17,7 +17,9 @@
       <LoadingSpinner />
     </div>
     <div v-else class="view-content">
-      <Button type="primary" class="w-100">Cadastrar Animal</Button>
+      <Button type="primary" class="w-100" @click="openModal"
+        >Cadastrar Animal</Button
+      >
 
       <VueGoodTable
         class="mt-3 w-100"
@@ -73,7 +75,11 @@
       </template>
 
       <template slot="modal-footer">
-        <Button type="primary" class="col-12 icon-rotate">
+        <Button
+          type="primary"
+          class="col-12 icon-rotate"
+          @click="isModalVisible = false"
+        >
           Salvar
           <i class="fas fa-save ml-1"></i>
         </Button>
@@ -118,6 +124,10 @@ export default Vue.extend({
     ...mapActions({
       fetchAnimals: 'animals/fetchAnimals',
     }),
+
+    openModal() {
+      this.isModalVisible = true;
+    },
   },
 });
 </script>
