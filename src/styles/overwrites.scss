@@ -29,6 +29,15 @@
       color: white !important;
     }
   }
+
+  &.btn-blue {
+    color: #fff;
+    background-color: #2980b9;
+
+    &:hover {
+      background-color: #2377ad;
+    }
+  }
 }
 
 .text-bold {

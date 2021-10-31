@@ -53,8 +53,21 @@
         </p>
 
         <template slot="table-row" slot-scope="props">
-          <div v-if="props.column.field === 'after'">
-            <span>ACTIONS</span>
+          <div
+            v-if="props.column.field === 'after'"
+            class="media-body text-rigth d-flex justify-content-around"
+          >
+            <Button type="blue" class="mr-1">
+              <i class="fas fa-eye"></i>
+            </Button>
+
+            <Button type="warning" class="mr-1">
+              <i class="fas fa-edit"></i>
+            </Button>
+
+            <Button type="danger">
+              <i class="fas fa-trash-alt ml-1"></i>
+            </Button>
           </div>
         </template>
       </VueGoodTable>
