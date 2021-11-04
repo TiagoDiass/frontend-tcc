@@ -10,7 +10,7 @@ export type APIAnimal = {
 export type Animal = {
   id: string;
   name: string;
-  type: 'Cão' | 'Gato';
+  type: '🐶 Cão' | '🐱 Gato';
   size: 'Grande' | 'Médio' | 'Pequeno';
   gender: 'Macho' | 'Femêa';
   pictureUrl?: string;

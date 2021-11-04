@@ -5,8 +5,8 @@ import { Animal, APIAnimal } from '@/@types/Animals';
  */
 export const convertAPIAnimalToAnimal = (apiAnimal: APIAnimal): Animal => {
   const types = {
-    dog: 'Cão',
-    cat: 'Gato',
+    dog: '🐶 Cão',
+    cat: '🐱 Gato',
   } as const;
 
   const genders = {
