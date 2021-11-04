@@ -5,7 +5,7 @@ import userEvent from '@testing-library/user-event';
 describe('Component: Button', () => {
   it('should render correctly', () => {
     render(Button, {
-      props: { type: 'secondary' },
+      props: { category: 'secondary' },
       slots: { default: 'Meu botão' },
     });
 

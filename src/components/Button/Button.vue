@@ -16,7 +16,7 @@ export default Vue.extend({
   name: 'Button',
 
   props: {
-    type: {
+    category: {
       type: String,
       required: false,
       default: 'primary',
@@ -31,7 +31,7 @@ export default Vue.extend({
 
   computed: {
     buttonTypeClass(): string {
-      return `btn-${this.type}`;
+      return `btn-${this.category}`;
     },
   },
 
