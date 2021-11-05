@@ -109,4 +109,10 @@ export default Vue.extend({
 });
 </script>
 
-<style></style>
+<style lang="scss">
+.form-group.base-input {
+  .form-control-label {
+    font-weight: 600;
+  }
+}
+</style>
