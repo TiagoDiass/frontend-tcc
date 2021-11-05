@@ -17,7 +17,7 @@
       <LoadingSpinner />
     </div>
     <div v-else class="view-content">
-      <Button type="primary" class="w-100" @click="openModal"
+      <Button category="primary" class="w-100" @click="openModal"
         >Cadastrar Animal</Button
       >
 
@@ -43,7 +43,7 @@
           },
           {
             label: 'Ações',
-            field: 'after',
+            field: 'actions',
           },
         ]"
         :pagination-options="paginationOptions"
@@ -54,18 +54,18 @@
 
         <template slot="table-row" slot-scope="props">
           <div
-            v-if="props.column.field === 'after'"
-            class="media-body text-rigth d-flex justify-content-around"
+            v-if="props.column.field === 'actions'"
+            class="media-body text-rigth d-flex justify-content-center"
           >
-            <Button type="blue" class="mr-1">
+            <Button category="blue" class="mr-1">
               <i class="fas fa-eye"></i>
             </Button>
 
-            <Button type="warning" class="mr-1">
+            <Button category="warning" class="mr-1">
               <i class="fas fa-edit"></i>
             </Button>
 
-            <Button type="danger">
+            <Button category="danger">
               <i class="fas fa-trash-alt ml-1"></i>
             </Button>
           </div>
@@ -82,16 +82,28 @@
       </template>
 
       <template slot="modal-body">
-        <div>
-          <h1>AQUI O BODY MEU FI</h1>
-        </div>
+        <form class="row" @submit="doSomeShit">
+          <Input
+            id="teste"
+            label="Meu lindo teste"
+            v-model="name"
+            required
+            placeholder="Shit here we go"
+            mask="###.###.###-##"
+            :masked="true"
+          >
+            <template slot="errorBlock">
+              <span>RG é requerido</span>
+            </template>
+          </Input>
+        </form>
       </template>
 
       <template slot="modal-footer">
         <Button
-          type="primary"
+          category="primary"
           class="col-12 icon-rotate"
-          @click="isModalVisible = false"
+          @click="doSomeShit"
         >
           Salvar
           <i class="fas fa-save ml-1"></i>
@@ -105,14 +117,16 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 import 'vue-good-table/dist/vue-good-table.css';
 import Vue from 'vue';
-import { Button, Modal, LoadingSpinner } from '@/components';
+import { Button, Modal, LoadingSpinner, Input } from '@/components';
 import { VueGoodTablePaginationOptions } from '@/utils/constants/VueGoodTablePaginationOptions';
 import { mapActions, mapGetters } from 'vuex';
+import Swal from 'sweetalert2';
 
 export default Vue.extend({
   components: {
     Button,
     Modal,
+    Input,
     VueGoodTable: require('vue-good-table').VueGoodTable,
     LoadingSpinner,
   },
@@ -123,7 +137,8 @@ export default Vue.extend({
 
   data: () => ({
     paginationOptions: VueGoodTablePaginationOptions,
-    isModalVisible: false,
+    isModalVisible: true,
+    name: '',
   }),
 
   computed: {
@@ -140,6 +155,25 @@ export default Vue.extend({
 
     openModal() {
       this.isModalVisible = true;
+    },
+
+    doSomeShit(event: Event) {
+      event.preventDefault();
+
+      console.log(this.name);
+
+      const Toast = Swal.mixin({
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 3000,
+        timerProgressBar: true,
+      });
+
+      Toast.fire({
+        icon: 'success',
+        title: 'Signed in successfully',
+      });
     },
   },
 });
