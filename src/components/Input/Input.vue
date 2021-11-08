@@ -5,6 +5,7 @@
     >
 
     <input
+      v-if="mask"
       type="text"
       v-bind="$attrs"
       class="form-control"
@@ -13,9 +14,20 @@
         { 'is-invalid': isValid === false },
         inputClasses,
       ]"
-      :value="value"
+      v-model="model"
       v-mask="mask"
-      v-on="listeners"
+    />
+    <input
+      v-else
+      type="text"
+      v-bind="$attrs"
+      class="form-control"
+      :class="[
+        { 'is-valid': isValid === true },
+        { 'is-invalid': isValid === false },
+        inputClasses,
+      ]"
+      v-model="model"
     />
 
     <slot name="helpBlock">
@@ -38,9 +50,9 @@ import { mask } from 'vue-the-mask';
 export default Vue.extend({
   inheritAttrs: false,
 
-  mounted() {
-    console.log(this.isValid);
-  },
+  // mounted() {
+  //   console.log(this.mask);
+  // },
 
   directives: {
     mask,
@@ -80,30 +92,21 @@ export default Vue.extend({
 
     mask: {
       required: false,
-      default: null,
+      default: undefined,
     },
 
     masked: Boolean,
   },
 
   computed: {
-    listeners(): any {
-      return {
-        ...this.$listeners,
-        input: this.updateValue,
-        focus: (v: FocusEvent) => this.$emit('focus', v),
-      };
-    },
-  },
+    model: {
+      get(): any {
+        return this.value;
+      },
 
-  methods: {
-    updateValue(event: any) {
-      const value =
-        event.target.value && !this.masked
-          ? event.target.value.replace(/\D/g, '')
-          : event.target.value;
-
-      this.$emit('input', value);
+      set(value: string) {
+        this.$emit('input', this.masked ? value : value.replace(/\D/g, ''));
+      },
     },
   },
 });
