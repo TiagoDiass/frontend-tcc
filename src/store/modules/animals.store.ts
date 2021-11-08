@@ -46,6 +46,15 @@ const animalsModule: Module<AnimalsModuleState, null> = {
             : data.errors?.join(', '),
       };
     },
+
+    async deleteAnimal(_, animalId: string) {
+      const response = await animalsRequests.remove(animalId);
+
+      return {
+        status: response.status,
+        message: response.data,
+      };
+    },
   },
 
   mutations: {

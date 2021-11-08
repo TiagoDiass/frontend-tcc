@@ -69,7 +69,10 @@
               <i class="fas fa-edit"></i>
             </Button>
 
-            <Button category="danger">
+            <Button
+              category="danger"
+              @click="confirmAnimalDelete(props.row.id)"
+            >
               <i class="fas fa-trash-alt ml-1"></i>
             </Button>
           </div>
@@ -230,6 +233,7 @@ export default Vue.extend({
     ...mapActions({
       fetchAnimals: 'animals/fetchAnimals',
       addAnimal: 'animals/addAnimal',
+      deleteAnimal: 'animals/deleteAnimal',
     }),
 
     closeCreateAnimalModal() {
@@ -247,6 +251,33 @@ export default Vue.extend({
         showToast({ icon: 'success', text: response.message });
       } else {
         alert.error(response.message);
+      }
+    },
+
+    async confirmAnimalDelete(animalId: string) {
+      const { answer } = await alert.question({
+        text: 'Essa operação não poderá ser desfeita',
+      });
+
+      if (answer === 'yes') {
+        const deleteResponse: ActionResponse = await this.deleteAnimal(
+          animalId
+        );
+
+        const isSuccessResponse = deleteResponse.status === 200;
+
+        if (isSuccessResponse) {
+          this.fetchAnimals();
+        }
+
+        showToast({
+          icon: isSuccessResponse ? 'success' : 'error',
+          text: isSuccessResponse
+            ? 'Animal excluído com sucesso'
+            : deleteResponse.message,
+        });
+      } else {
+        showToast({ icon: 'info', text: 'O animal não foi excluído' });
       }
     },
   },

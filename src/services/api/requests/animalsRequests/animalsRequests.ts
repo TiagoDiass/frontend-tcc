@@ -12,7 +12,12 @@ const add = (
   return api.post('/animals/create', animal);
 };
 
+const remove = (animalId: string): Promise<AxiosResponse<string | null>> => {
+  return api.delete(`/animals/delete/${animalId}`);
+};
+
 export default {
   getAll,
   add,
+  remove,
 };
