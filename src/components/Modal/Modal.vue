@@ -23,7 +23,7 @@
             <slot name="modal-body"></slot>
           </div>
 
-          <div class="modal-footer py-1">
+          <div class="modal-footer py-1 justify-content-center flex-nowrap">
             <slot name="modal-footer"></slot>
           </div>
         </div>

@@ -17,9 +17,13 @@
       <LoadingSpinner />
     </div>
     <div v-else class="view-content">
-      <Button category="primary" class="w-100" @click="openModal"
-        >Cadastrar Animal</Button
+      <Button
+        category="primary"
+        class="w-100"
+        @click="modals.isCreateAnimalModalVisible = true"
       >
+        Cadastrar Animal
+      </Button>
 
       <VueGoodTable
         class="mt-3 w-100"
@@ -73,37 +77,97 @@
       </VueGoodTable>
     </div>
 
-    <Modal size="lg" :isVisible="isModalVisible">
+    <!-- Modal de cadastro -->
+    <Modal size="lg" :isVisible="modals.isCreateAnimalModalVisible">
       <template slot="modal-header">
         <h4 class="modal-title text-uppercase text-bold">
-          Cadastrar SHIT
-          <i class="fas fa-users"></i>
+          Cadastrar animal
+          <i class="fas fa-dog"></i>
         </h4>
       </template>
 
       <template slot="modal-body">
-        <form class="row" @submit="doSomeShit">
-          <Input
-            id="teste"
-            label="Meu lindo teste"
-            v-model="name"
+        <form class="row" @submit="submitCreateAnimalForm">
+          <div class="form-group col-6">
+            <label for="name">Nome *</label>
+            <input
+              id="name"
+              type="text"
+              v-model="form.name"
+              class="form-control"
+              placeholder="Digite o nome do animal"
+            />
+          </div>
+
+          <Select
+            id="type"
+            label="Tipo"
+            class="col-6"
+            v-model="form.type"
+            :options="[
+              { label: 'Selecione o tipo do animal', value: '' },
+              { label: 'Cão', value: 'dog' },
+              { label: 'Gato', value: 'cat' },
+            ]"
             required
-            placeholder="Shit here we go"
-            mask="###.###.###-##"
-            :masked="true"
+          />
+
+          <Select
+            id="size"
+            label="Porte"
+            class="col-6"
+            v-model="form.size"
+            :options="[
+              { label: 'Selecione o porte do animal', value: '' },
+              { label: 'Pequeno', value: 'P' },
+              { label: 'Médio', value: 'M' },
+              { label: 'Grande', value: 'G' },
+            ]"
+            required
+          />
+
+          <Select
+            id="gender"
+            label="Sexo"
+            class="col-6"
+            v-model="form.gender"
+            :options="[
+              { label: 'Selecione o sexo do animal', value: '' },
+              { label: 'Femêa', value: 'F' },
+              { label: 'Macho', value: 'M' },
+            ]"
+            required
+          />
+
+          <div class="form-group col-12">
+            <label for="pictureUrl">Endereço da foto do animal</label>
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Digite o endereço para a foto do animal"
+              v-model="form.pictureUrl"
+            />
+          </div>
+
+          <div
+            v-if="form.pictureUrl"
+            class="col-12 d-flex justify-content-around align-items-center"
           >
-            <template slot="errorBlock">
-              <span>RG é requerido</span>
-            </template>
-          </Input>
+            <span class="text-bold">Preview da foto</span>
+            <img :src="form.pictureUrl" style="max-width: 250px" />
+          </div>
         </form>
       </template>
 
       <template slot="modal-footer">
+        <Button category="danger" class="col-6" @click="closeCreateAnimalModal"
+          >Cancelar <i class="fas fa-times-circle" />
+        </Button>
+
         <Button
           category="primary"
-          class="col-12 icon-rotate"
-          @click="doSomeShit"
+          class="col-6 icon-rotate"
+          @click="submitCreateAnimalForm"
         >
           Salvar
           <i class="fas fa-save ml-1"></i>
@@ -117,18 +181,23 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 import 'vue-good-table/dist/vue-good-table.css';
 import Vue from 'vue';
-import { Button, Modal, LoadingSpinner, Input } from '@/components';
+import { Button, Modal, LoadingSpinner, Input, Select } from '@/components';
 import { VueGoodTablePaginationOptions } from '@/utils/constants/VueGoodTablePaginationOptions';
 import { mapActions, mapGetters } from 'vuex';
-import Swal from 'sweetalert2';
+import { ActionResponse } from '@/store';
+import alert from '@/services/alert';
+import showToast from '@/services/toast';
 
 export default Vue.extend({
   components: {
     Button,
     Modal,
+    // eslint-disable-next-line vue/no-unused-components
     Input,
     VueGoodTable: require('vue-good-table').VueGoodTable,
     LoadingSpinner,
+    // eslint-disable-next-line vue/no-unused-components
+    Select,
   },
 
   mounted() {
@@ -137,8 +206,17 @@ export default Vue.extend({
 
   data: () => ({
     paginationOptions: VueGoodTablePaginationOptions,
-    isModalVisible: true,
-    name: '',
+    modals: {
+      isCreateAnimalModalVisible: false,
+    },
+    form: {
+      id: '',
+      name: '',
+      type: '',
+      size: '',
+      gender: '',
+      pictureUrl: '',
+    },
   }),
 
   computed: {
@@ -151,32 +229,32 @@ export default Vue.extend({
   methods: {
     ...mapActions({
       fetchAnimals: 'animals/fetchAnimals',
+      addAnimal: 'animals/addAnimal',
     }),
 
-    openModal() {
-      this.isModalVisible = true;
+    closeCreateAnimalModal() {
+      this.modals.isCreateAnimalModalVisible = false;
     },
 
-    doSomeShit(event: Event) {
+    async submitCreateAnimalForm(event: Event) {
       event.preventDefault();
 
-      console.log(this.name);
+      const response: ActionResponse = await this.addAnimal(this.form);
 
-      const Toast = Swal.mixin({
-        toast: true,
-        position: 'top-end',
-        showConfirmButton: false,
-        timer: 3000,
-        timerProgressBar: true,
-      });
-
-      Toast.fire({
-        icon: 'success',
-        title: 'Signed in successfully',
-      });
+      if (response.status === 201) {
+        this.fetchAnimals();
+        this.modals.isCreateAnimalModalVisible = false;
+        showToast({ icon: 'success', text: response.message });
+      } else {
+        alert.error(response.message);
+      }
     },
   },
 });
 </script>
 
-<style></style>
+<style>
+label {
+  font-weight: 600;
+}
+</style>

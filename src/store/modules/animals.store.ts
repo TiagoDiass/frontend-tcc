@@ -1,4 +1,4 @@
-import { Animal } from '@/@types/Animals';
+import { Animal, APIAnimal } from '@/@types/Animals';
 import { animalsRequests } from '@/services/api/requests';
 import { convertAPIAnimalsToAnimals } from '@/utils/converters';
 import { Module } from 'vuex';
@@ -12,6 +12,8 @@ const INITIAL_STATE = (): AnimalsModuleState => ({
   animals: [] as Animal[],
   isLoading: false,
 });
+
+type AddAnimalActionParams = Omit<APIAnimal, 'id'>;
 
 const animalsModule: Module<AnimalsModuleState, null> = {
   namespaced: true,
@@ -31,6 +33,18 @@ const animalsModule: Module<AnimalsModuleState, null> = {
 
       commit('setAnimals', convertAPIAnimalsToAnimals(response.data.data));
       commit('setIsLoading', false);
+    },
+
+    async addAnimal(_, animal: AddAnimalActionParams) {
+      const { status, data } = await animalsRequests.add(animal);
+
+      return {
+        status: status,
+        message:
+          status === 201
+            ? 'Animal cadastrado com sucesso'
+            : data.errors?.join(', '),
+      };
     },
   },
 
