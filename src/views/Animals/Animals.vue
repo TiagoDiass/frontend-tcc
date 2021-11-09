@@ -61,11 +61,19 @@
             v-if="props.column.field === 'actions'"
             class="media-body text-rigth d-flex justify-content-center"
           >
-            <Button category="blue" class="mr-1">
+            <Button
+              category="blue"
+              class="mr-1"
+              @click="openDetailsModal(props.row.id)"
+            >
               <i class="fas fa-eye"></i>
             </Button>
 
-            <Button category="warning" class="mr-1">
+            <Button
+              category="warning"
+              class="mr-1"
+              @click="openEditModal(props.row.id)"
+            >
               <i class="fas fa-edit"></i>
             </Button>
 
@@ -80,17 +88,17 @@
       </VueGoodTable>
     </div>
 
-    <!-- Modal de cadastro -->
+    <!-- Modal de cadastro e edição -->
     <Modal size="lg" :isVisible="modals.isCreateAnimalModalVisible">
       <template slot="modal-header">
         <h4 class="modal-title text-uppercase text-bold">
-          Cadastrar animal
+          {{ currentModalLabel }} animal
           <i class="fas fa-dog"></i>
         </h4>
       </template>
 
       <template slot="modal-body">
-        <form class="row" @submit="submitCreateAnimalForm">
+        <form class="row" @submit="submitForm">
           <div class="form-group col-6">
             <label for="name">Nome *</label>
             <input
@@ -170,10 +178,106 @@
         <Button
           category="primary"
           class="col-6 icon-rotate"
-          @click="submitCreateAnimalForm"
+          @click="submitForm"
         >
           Salvar
           <i class="fas fa-save ml-1"></i>
+        </Button>
+      </template>
+    </Modal>
+
+    <Modal size="lg" :isVisible="modals.isAnimalDetailsModalVisible">
+      <template slot="modal-header">
+        <h4 class="modal-title text-uppercase text-bold">
+          Visualizar animal
+          <i class="fas fa-dog"></i>
+        </h4>
+      </template>
+
+      <template slot="modal-body">
+        <form class="row">
+          <div class="form-group col-6">
+            <label for="name">Nome *</label>
+            <input
+              id="name"
+              type="text"
+              v-model="form.name"
+              class="form-control"
+              placeholder="Digite o nome do animal"
+              disabled
+            />
+          </div>
+
+          <Select
+            id="type"
+            label="Tipo"
+            class="col-6"
+            v-model="form.type"
+            :options="[
+              { label: 'Selecione o tipo do animal', value: '' },
+              { label: 'Cão', value: 'dog' },
+              { label: 'Gato', value: 'cat' },
+            ]"
+            required
+            disabled
+          />
+
+          <Select
+            id="size"
+            label="Porte"
+            class="col-6"
+            v-model="form.size"
+            :options="[
+              { label: 'Selecione o porte do animal', value: '' },
+              { label: 'Pequeno', value: 'P' },
+              { label: 'Médio', value: 'M' },
+              { label: 'Grande', value: 'G' },
+            ]"
+            required
+            disabled
+          />
+
+          <Select
+            id="gender"
+            label="Sexo"
+            class="col-6"
+            v-model="form.gender"
+            :options="[
+              { label: 'Selecione o sexo do animal', value: '' },
+              { label: 'Femêa', value: 'F' },
+              { label: 'Macho', value: 'M' },
+            ]"
+            required
+            disabled
+          />
+
+          <div class="form-group col-12">
+            <label for="pictureUrl">Endereço da foto do animal</label>
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Digite o endereço para a foto do animal"
+              v-model="form.pictureUrl"
+              disabled
+            />
+          </div>
+
+          <div
+            v-if="form.pictureUrl"
+            class="col-12 d-flex justify-content-around align-items-center"
+          >
+            <span class="text-bold">Preview da foto</span>
+            <img :src="form.pictureUrl" style="max-width: 250px" />
+          </div>
+        </form>
+      </template>
+
+      <template slot="modal-footer">
+        <Button
+          category="danger"
+          class="col-12"
+          @click="modals.isAnimalDetailsModalVisible = false"
+          >Fechar <i class="fas fa-times-circle" />
         </Button>
       </template>
     </Modal>
@@ -190,6 +294,7 @@ import { mapActions, mapGetters } from 'vuex';
 import { ActionResponse } from '@/store';
 import alert from '@/services/alert';
 import showToast from '@/services/toast';
+import { animalsRequests } from '@/services/api/requests';
 
 export default Vue.extend({
   components: {
@@ -210,7 +315,9 @@ export default Vue.extend({
   data: () => ({
     paginationOptions: VueGoodTablePaginationOptions,
     modals: {
+      isAnimalDetailsModalVisible: false,
       isCreateAnimalModalVisible: false,
+      currentModal: '' as 'create' | 'edit',
     },
     form: {
       id: '',
@@ -227,6 +334,15 @@ export default Vue.extend({
       animals: 'animals/getAnimals',
       isLoading: 'animals/getIsLoading',
     }),
+
+    currentModalLabel(): 'Criar' | 'Editar' {
+      const modalLabels = {
+        create: 'Criar',
+        edit: 'Editar',
+      } as const;
+
+      return modalLabels[this.modals.currentModal];
+    },
   },
 
   methods: {
@@ -234,15 +350,86 @@ export default Vue.extend({
       fetchAnimals: 'animals/fetchAnimals',
       addAnimal: 'animals/addAnimal',
       deleteAnimal: 'animals/deleteAnimal',
+      updateAnimal: 'animals/updateAnimal',
     }),
 
     closeCreateAnimalModal() {
       this.modals.isCreateAnimalModalVisible = false;
     },
 
-    async submitCreateAnimalForm(event: Event) {
+    async openEditModal(animalId: string) {
+      const animal = await this.getAnimal(animalId);
+
+      if (!animal) {
+        alert.error('Esse animal não existe mais').then(this.fetchAnimals);
+        return;
+      }
+
+      this.form = {
+        id: animal.id,
+        name: animal.name,
+        type: animal.type,
+        gender: animal.gender,
+        size: animal.size,
+        pictureUrl: animal.pictureUrl || '',
+      };
+
+      this.modals.currentModal = 'edit';
+      this.modals.isCreateAnimalModalVisible = true;
+    },
+
+    async openDetailsModal(animalId: string) {
+      const animal = await this.getAnimal(animalId);
+
+      if (!animal) {
+        alert.error('Esse animal não existe mais').then(this.fetchAnimals);
+        return;
+      }
+
+      this.form = {
+        id: animal.id,
+        name: animal.name,
+        type: animal.type,
+        gender: animal.gender,
+        size: animal.size,
+        pictureUrl: animal.pictureUrl || '',
+      };
+
+      this.modals.isAnimalDetailsModalVisible = true;
+    },
+
+    async getAnimal(animalId: string) {
+      const { data } = await animalsRequests.getById(animalId);
+
+      return data.data;
+    },
+
+    async submitForm(event: Event) {
       event.preventDefault();
 
+      const submits = {
+        create: this.submitCreateForm,
+        edit: this.submitEditForm,
+      } as const;
+
+      submits[this.modals.currentModal]();
+
+      return;
+    },
+
+    async submitEditForm() {
+      const response: ActionResponse = await this.updateAnimal(this.form);
+
+      if (response.status === 200) {
+        this.fetchAnimals();
+        this.modals.isCreateAnimalModalVisible = false;
+        showToast({ icon: 'success', text: response.message });
+      } else {
+        alert.error(response.message);
+      }
+    },
+
+    async submitCreateForm() {
       const response: ActionResponse = await this.addAnimal(this.form);
 
       if (response.status === 201) {

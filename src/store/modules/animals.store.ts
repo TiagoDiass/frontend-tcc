@@ -52,7 +52,16 @@ const animalsModule: Module<AnimalsModuleState, null> = {
 
       return {
         status: response.status,
-        message: response.data,
+        message: response.data.data,
+      };
+    },
+
+    async updateAnimal(_, animal: APIAnimal) {
+      const { status, data } = await animalsRequests.update(animal);
+
+      return {
+        status,
+        message: data.message,
       };
     },
   },
