@@ -15,7 +15,7 @@
       <ul class="p-2 ml-5">
         <li>
           A tela de <span class="text-bold">Animais</span> é onde você pode
-          cadastrar, editar, excluir e visualizar os dados dos animais;
+          gerenciar os animais que são cuidados pela ONG;
         </li>
         <li>
           A tela de <span class="text-bold">Adoções</span> é onde você pode
@@ -31,8 +31,7 @@
         </li>
         <li>
           A tela de <span class="text-bold">Casos de ajuda</span> é onde você
-          pode cadastrar, editar, excluir e visualizar os dados dos casos de
-          ajuda da ONG;
+          pode gerenciar todos os casos de ajuda da ONG;
         </li>
         <li>
           A tela de <span class="text-bold">Serviços</span> é onde você pode
