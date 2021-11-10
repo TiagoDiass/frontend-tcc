@@ -17,11 +17,7 @@
       <LoadingSpinner />
     </div>
     <div v-else class="view-content">
-      <Button
-        category="primary"
-        class="w-100"
-        @click="modals.isCreateAnimalModalVisible = true"
-      >
+      <Button category="primary" class="w-100" @click="openCreateModal">
         Cadastrar Animal
       </Button>
 
@@ -107,7 +103,21 @@
               v-model="form.name"
               class="form-control"
               placeholder="Digite o nome do animal"
+              @focus="$v.form.name.$touch"
             />
+
+            <div
+              v-if="$v.form.name.$error"
+              class="text-danger invalid-feedback"
+              style="display: block"
+            >
+              <span v-if="!$v.form.name.required"
+                >Nome do animal é obrigatório</span
+              >
+              <span v-if="!$v.form.name.minLength"
+                >Nome do animal deve ter pelo menos 2 caracteres</span
+              >
+            </div>
           </div>
 
           <Select
@@ -121,7 +131,15 @@
               { label: 'Gato', value: 'cat' },
             ]"
             required
-          />
+            :error="$v.form.type.$error"
+            @focus="$v.form.type.$touch"
+          >
+            <template slot="errorBlock">
+              <span v-if="!$v.form.type.required"
+                >Tipo do animal é obrigatório</span
+              >
+            </template>
+          </Select>
 
           <Select
             id="size"
@@ -135,7 +153,15 @@
               { label: 'Grande', value: 'G' },
             ]"
             required
-          />
+            :error="$v.form.size.$error"
+            @focus="$v.form.size.$touch"
+          >
+            <template slot="errorBlock">
+              <span v-if="!$v.form.size.required">
+                Porte do animal é obrigatório
+              </span>
+            </template>
+          </Select>
 
           <Select
             id="gender"
@@ -148,16 +174,36 @@
               { label: 'Macho', value: 'M' },
             ]"
             required
-          />
+            :error="$v.form.gender.$error"
+            @focus="$v.form.gender.$touch"
+          >
+            <template slot="errorBlock">
+              <span v-if="!$v.form.gender.required">
+                Sexo do animal é obrigatório
+              </span>
+            </template>
+          </Select>
 
           <div class="form-group col-12">
             <label for="pictureUrl">Endereço da foto do animal</label>
             <input
+              id="pictureUrl"
               type="text"
               class="form-control"
               placeholder="Digite o endereço para a foto do animal"
               v-model="form.pictureUrl"
+              @focus="$v.form.pictureUrl.$touch"
             />
+
+            <div
+              v-if="$v.form.pictureUrl.$error"
+              class="text-danger invalid-feedback"
+              style="display: block"
+            >
+              <span v-if="!$v.form.pictureUrl.url"
+                >Endereço da foto deve ser uma URL válida</span
+              >
+            </div>
           </div>
 
           <div
@@ -179,6 +225,7 @@
           category="primary"
           class="col-6 icon-rotate"
           @click="submitForm"
+          :disabled="$v.form.$invalid"
         >
           Salvar
           <i class="fas fa-save ml-1"></i>
@@ -295,6 +342,7 @@ import { ActionResponse } from '@/store';
 import alert from '@/services/alert';
 import showToast from '@/services/toast';
 import { animalsRequests } from '@/services/api/requests';
+import { required, minLength, url } from 'vuelidate/lib/validators';
 
 export default Vue.extend({
   components: {
@@ -352,6 +400,21 @@ export default Vue.extend({
       deleteAnimal: 'animals/deleteAnimal',
       updateAnimal: 'animals/updateAnimal',
     }),
+
+    openCreateModal() {
+      this.$v.$reset();
+      this.form = {
+        id: '',
+        name: '',
+        type: '',
+        size: '',
+        gender: '',
+        pictureUrl: '',
+      };
+
+      this.modals.currentModal = 'create';
+      this.modals.isCreateAnimalModalVisible = true;
+    },
 
     closeCreateAnimalModal() {
       this.modals.isCreateAnimalModalVisible = false;
@@ -466,6 +529,31 @@ export default Vue.extend({
       } else {
         showToast({ icon: 'info', text: 'O animal não foi excluído' });
       }
+    },
+  },
+
+  validations: {
+    form: {
+      name: {
+        required,
+        minLength: minLength(2),
+      },
+
+      type: {
+        required,
+      },
+
+      size: {
+        required,
+      },
+
+      gender: {
+        required,
+      },
+
+      pictureUrl: {
+        url,
+      },
     },
   },
 });

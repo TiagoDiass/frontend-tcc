@@ -1465,6 +1465,13 @@
   dependencies:
     vue "^2.6.10"
 
+"@types/vuelidate@0.7.15":
+  version "0.7.15"
+  resolved "https://registry.npmjs.org/@types/vuelidate/-/vuelidate-0.7.15.tgz#f88b1d89081ea8e54d33ca83ead034a9619b2eb4"
+  integrity sha512-U3uabs0vVuRmxx4+cwa5Hhq1edxWuMODEf/u98PQ4+EJtZCs4TZep9q6zrGuqWmVImUc2DlKD33kXmSZqakV/A==
+  dependencies:
+    vue "^2.6.11"
+
 "@types/webpack-dev-server@^3.11.0":
   version "3.11.6"
   resolved "https://registry.yarnpkg.com/@types/webpack-dev-server/-/webpack-dev-server-3.11.6.tgz#d8888cfd2f0630203e13d3ed7833a4d11b8a34dc"
@@ -11053,6 +11060,11 @@ vue@^2.6.10, vue@^2.6.11:
   version "2.6.14"
   resolved "https://registry.yarnpkg.com/vue/-/vue-2.6.14.tgz#e51aa5250250d569a3fbad3a8a5a687d6036e235"
   integrity sha512-x2284lgYvjOMj3Za7kqzRcUSxBboHqtgRE2zlos1qWaOye5yUmHn42LB1250NJBLRwEcdrB0JRwyPTEPhfQjiQ==
+
+vuelidate@0.7.5:
+  version "0.7.5"
+  resolved "https://registry.npmjs.org/vuelidate/-/vuelidate-0.7.5.tgz#ff48c75ae9d24ea24c24e9ea08065eda0a0cba0a"
+  integrity sha512-GAAG8QAFVp7BFeQlNaThpTbimq3+HypBPNwdkCkHZZeVaD5zmXXfhp357dcUJXHXTZjSln0PvP6wiwLZXkFTwg==
 
 vuex@^3.4.0:
   version "3.6.2"

@@ -31,6 +31,14 @@
         {{ option.label }}
       </option>
     </select>
+
+    <div
+      class="text-danger invalid-feedback"
+      style="display: block"
+      v-if="error"
+    >
+      <slot name="errorBlock"></slot>
+    </div>
   </div>
 </template>
 
@@ -58,6 +66,12 @@ export default Vue.extend({
     selectClasses: Array,
 
     value: {},
+
+    error: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
   },
 
   computed: {
