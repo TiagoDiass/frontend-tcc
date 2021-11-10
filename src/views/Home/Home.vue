@@ -14,16 +14,41 @@
 
       <ul class="p-2 ml-5">
         <li>
-          A tela de <span class="text-bold">Pacientes</span> é onde você pode
-          cadastrar, editar, excluir e visualizar os dados de um paciente;
+          A tela de <span class="text-bold">Animais</span> é onde você pode
+          cadastrar, editar, excluir e visualizar os dados dos animais;
         </li>
         <li>
-          A tela de <span class="text-bold">Doutores</span> é onde você pode
-          cadastrar, editar, excluir e visualizar os dados de um doutor;
+          A tela de <span class="text-bold">Adoções</span> é onde você pode
+          gerenciar as adoções realizadas pela ONG.
         </li>
         <li>
-          A tela de <span class="text-bold">Agendamentos</span> é onde você pode
-          registrar, editar, excluir e visualizar os agendamentos marcados;
+          A tela de <span class="text-bold">Voluntários</span> é onde você pode
+          gerenciar todos os voluntários da ONG;
+        </li>
+        <li>
+          A tela de <span class="text-bold">Medicamentos</span> é onde você pode
+          gerenciar todos os medicamentos armazenados da ONG;
+        </li>
+        <li>
+          A tela de <span class="text-bold">Casos de ajuda</span> é onde você
+          pode cadastrar, editar, excluir e visualizar os dados dos casos de
+          ajuda da ONG;
+        </li>
+        <li>
+          A tela de <span class="text-bold">Serviços</span> é onde você pode
+          gerenciar todos os serviços realizados pelos voluntários da ONG;
+        </li>
+        <li>
+          A tela de <span class="text-bold">Clínicas parceiras</span> é onde
+          você pode gerenciar todas as clínicas parceiras da ONG;
+        </li>
+        <li>
+          A tela de <span class="text-bold">Transações</span> é onde você pode
+          gerenciar todas as transações realizadas pela ONG;
+        </li>
+        <li>
+          A tela de <span class="text-bold">Produtos</span> é onde você pode
+          gerenciar todos os produtos armazenados pela ONG;
         </li>
       </ul>
 
@@ -34,30 +59,13 @@
         a situação. Os contatos estão abaixo
       </p>
 
-      <h5 class="mt-3">Sobre a aplicação</h5>
-      <p>Essa aplicação foi desenvolvida com fins de tralalalalalalala</p>
-      <ul class="p-2 ml-5">
-        <li>
-          <a
-            href="https://github.com/TiagoDiass/easy-hospital"
-            target="_blank"
-            class="btn btn-secondary"
-          >
-            Código fonte da aplicação
-            <i class="fas fa-code"></i>
-          </a>
-        </li>
-        <li class="mt-1">
-          <a
-            href="https://github.com/TiagoDiass"
-            target="_blank"
-            class="btn btn-secondary"
-          >
-            Desenvolvedor
-            <i class="fab fa-dev"></i>
-          </a>
-        </li>
-      </ul>
+      <a
+        href="https://github.com/TiagoDiass"
+        target="_blank"
+        class="btn btn-secondary mt-1"
+      >
+        Entre em contato com o desenvolvedor
+      </a>
     </div>
   </div>
 </template>
