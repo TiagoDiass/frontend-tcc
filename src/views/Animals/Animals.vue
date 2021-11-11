@@ -321,7 +321,7 @@
 
       <template slot="modal-footer">
         <Button
-          category="danger"
+          category="primary"
           class="col-12"
           @click="modals.isAnimalDetailsModalVisible = false"
           >Fechar <i class="fas fa-times-circle" />
@@ -383,9 +383,9 @@ export default Vue.extend({
       isLoading: 'animals/getIsLoading',
     }),
 
-    currentModalLabel(): 'Criar' | 'Editar' {
+    currentModalLabel(): 'Cadastrar' | 'Editar' {
       const modalLabels = {
-        create: 'Criar',
+        create: 'Cadastrar',
         edit: 'Editar',
       } as const;
 
