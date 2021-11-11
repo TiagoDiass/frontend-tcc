@@ -45,8 +45,8 @@ const servicesModule: Module<ServicesModuleState, null> = {
       };
     },
 
-    async deleteService(_, animalId: string) {
-      const response = await servicesRequests.remove(animalId);
+    async deleteService(_, serviceId: string) {
+      const response = await servicesRequests.remove(serviceId);
 
       return {
         status: response.status,
