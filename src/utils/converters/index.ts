@@ -1,5 +1,6 @@
 import { Animal, APIAnimal } from '@/@types/Animals';
 import { APIService, Service } from '@/@types/Services';
+import { APIProduct, Product } from '@/@types/Products';
 
 /**
  * It converts an APIAnimal to an Animal
@@ -46,8 +47,26 @@ export const convertAPIAnimalsToAnimals = (
 export const convertAPIServiceToService = (apiService: APIService): Service =>
   apiService;
 
+/**
+ * It converts an array of APIServices to an array of Services
+ */
 export const convertAPIServicesToServices = (
   apiServices: APIService[]
 ): Service[] => {
   return apiServices.map(convertAPIServiceToService);
+};
+
+/**
+ * It converts an APIProduct to a Product
+ */
+export const convertAPIProductToProduct = (apiProduct: APIProduct): Product =>
+  apiProduct;
+
+/**
+ * It converts an array of APIProducts to an array of Products
+ */
+export const convertAPIProductsToProducts = (
+  apiProducts: APIProduct[]
+): Product[] => {
+  return apiProducts.map(convertAPIProductToProduct);
 };
