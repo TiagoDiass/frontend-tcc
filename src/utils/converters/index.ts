@@ -2,6 +2,7 @@ import { Animal, APIAnimal } from '@/@types/Animals';
 import { APIService, Service } from '@/@types/Services';
 import { APIProduct, Product } from '@/@types/Products';
 import { APITransaction, Transaction } from '@/@types/Transactions';
+import { convertNumberIntoMoneyString } from '..';
 
 /**
  * It converts an APIAnimal to an Animal
@@ -79,13 +80,15 @@ export const convertAPITransactionToTransaction = (
   apiTransaction: APITransaction
 ): Transaction => {
   const types = {
-    deposit: 'Entrada 🟢',
-    withdraw: 'Saída 🔴',
+    deposit: '🟢 Entrada',
+    withdraw: '🔴 Saída',
   } as const;
 
   return {
     ...apiTransaction,
     type: types[apiTransaction.type],
+    date: new Date(`${apiTransaction.date} 12:00:00`).toLocaleDateString(), // converting to dd-mm-yyyy
+    value: convertNumberIntoMoneyString(apiTransaction.value / 100), // dividindo por 100 porque a API retorna em centavos
   };
 };
 

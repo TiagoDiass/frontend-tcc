@@ -9,8 +9,8 @@ export type APITransaction = {
 export type Transaction = {
   id: string;
   title: string;
-  value: number;
-  type: 'Entrada 🟢' | 'Saída 🔴';
+  value: string;
+  type: '🟢 Entrada' | '🔴 Saída';
   date: string;
 };
 

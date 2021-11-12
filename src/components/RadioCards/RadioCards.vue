@@ -5,7 +5,7 @@
     <div class="options">
       <div
         class="option"
-        :class="{ selected: value === option.value }"
+        :class="{ selected: value === option.value, disabled: disabled }"
         v-for="(option, index) in options"
         :key="index"
         @click="handleChangeOption(option)"
@@ -29,10 +29,13 @@ export default Vue.extend({
     options: { required: true, type: Array },
     value: [String, Number],
     required: Boolean,
+    disabled: Boolean,
   },
 
   methods: {
     handleChangeOption(option: { label: string; value: any }) {
+      if (this.disabled) return;
+
       this.$emit('input', this.value !== option.value ? option.value : '');
     },
   },

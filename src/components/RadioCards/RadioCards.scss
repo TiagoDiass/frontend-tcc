@@ -15,7 +15,7 @@
     transition: all 0.2s ease;
     cursor: pointer;
 
-    &:hover {
+    &:hover:not(.disabled) {
       background-color: #ddd;
       border-color: #ccc;
     }
