@@ -400,7 +400,7 @@ export default Vue.extend({
       this.form = {
         id: '',
         title: '',
-        value: 0,
+        value: '' as unknown as number,
         type: '',
         date: '',
       };
@@ -522,7 +522,7 @@ export default Vue.extend({
             : deleteResponse.message,
         });
       } else {
-        showToast({ icon: 'info', text: 'A transação não foi excluído' });
+        showToast({ icon: 'info', text: 'A transação não foi excluída' });
       }
     },
   },
