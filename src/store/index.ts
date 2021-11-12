@@ -3,6 +3,7 @@ import Vuex from 'vuex';
 import animalsModule from './modules/animals.store';
 import productsModule from './modules/products.store';
 import servicesModule from './modules/services.store';
+import transactionsModule from './modules/transactions.store';
 
 Vue.use(Vuex);
 
@@ -16,5 +17,6 @@ export default new Vuex.Store({
     animals: animalsModule,
     services: servicesModule,
     products: productsModule,
+    transactions: transactionsModule,
   },
 });
