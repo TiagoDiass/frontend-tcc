@@ -1,0 +1,29 @@
+@import '@/styles/theme.scss';
+
+.options {
+  display: flex;
+  justify-content: center;
+  column-gap: 1rem;
+
+  .option {
+    padding: 1.5rem 3rem;
+    text-align: center;
+    background-color: #eee;
+    border-radius: 6px;
+    font-weight: bold;
+
+    transition: all 0.2s ease;
+    cursor: pointer;
+
+    &:hover {
+      background-color: #ddd;
+      border-color: #ccc;
+    }
+
+    &.selected {
+      background-color: $secondary;
+      color: #fff;
+      transform: scale(1.05);
+    }
+  }
+}
