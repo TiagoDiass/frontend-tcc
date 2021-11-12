@@ -13,3 +13,9 @@ export type Transaction = {
   type: 'Entrada 🟢' | 'Saída 🔴';
   date: string;
 };
+
+export type Balance = {
+  total: number;
+  entries: number;
+  withdraws: number;
+};

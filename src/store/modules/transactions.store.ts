@@ -1,15 +1,21 @@
-import { APITransaction, Transaction } from '@/@types/Transactions';
+import { APITransaction, Balance, Transaction } from '@/@types/Transactions';
 import { transactionsRequests } from '@/services/api/requests';
 import { convertAPITransactionsToTransactions } from '@/utils/converters';
 import { Module } from 'vuex';
 
 type TransactionsModuleState = {
   transactions: Transaction[];
+  balance: Balance;
   isLoading: boolean;
 };
 
 const INITIAL_STATE = (): TransactionsModuleState => ({
   transactions: [],
+  balance: {
+    total: 0,
+    entries: 0,
+    withdraws: 0,
+  },
   isLoading: false,
 });
 
@@ -20,6 +26,7 @@ const transactionsModule: Module<TransactionsModuleState, null> = {
   getters: {
     getTransactions: (state) => state.transactions,
     getIsLoading: (state) => state.isLoading,
+    getBalance: (state) => state.balance,
   },
 
   actions: {
@@ -64,6 +71,15 @@ const transactionsModule: Module<TransactionsModuleState, null> = {
         message: data.message,
       };
     },
+
+    async fetchBalance({ commit }) {
+      commit('setIsLoading', true);
+
+      const response = await transactionsRequests.getBalanceTotalizers();
+
+      commit('setBalance', response.data.data);
+      commit('setIsLoading', false);
+    },
   },
 
   mutations: {
@@ -73,6 +89,10 @@ const transactionsModule: Module<TransactionsModuleState, null> = {
 
     setIsLoading(state, payload: boolean) {
       state.isLoading = payload;
+    },
+
+    setBalance(state, payload: Balance) {
+      state.balance = payload;
     },
   },
 };

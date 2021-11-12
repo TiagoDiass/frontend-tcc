@@ -15,19 +15,28 @@
         <div class="totalizer normal">
           <p class="label">Entradas 🟢</p>
 
-          <span class="value">+ R$ 30,00</span>
+          <span class="value">+ R$ {{ formattedBalance.entries }}</span>
         </div>
 
         <div class="totalizer normal">
           <p class="label">Saídas 🔴</p>
 
-          <span class="value">- R$ 15,00</span>
+          <span class="value">- R$ {{ formattedBalance.withdraws }}</span>
         </div>
 
-        <div class="totalizer current-balance positive-score">
+        <div
+          class="totalizer current-balance"
+          :class="[
+            { 'positive-score': balance.total > 0 },
+            { 'negative-score': balance.total < 0 },
+          ]"
+        >
           <p class="label">Total 💸</p>
 
-          <span class="value">+ R$ 15,00</span>
+          <span class="value">
+            {{ balance.total > 0 ? '+' : '-' }} R$
+            {{ formattedBalance.total }}
+          </span>
         </div>
       </header>
     </div>
@@ -35,9 +44,37 @@
 </template>
 
 <script lang="ts">
+import { Balance } from '@/@types/Transactions';
 import Vue from 'vue';
+import { mapActions, mapGetters } from 'vuex';
 
-export default Vue.extend({});
+export default Vue.extend({
+  mounted() {
+    this.fetchBalance();
+  },
+
+  computed: {
+    ...mapGetters({
+      balance: 'transactions/getBalance',
+    }),
+
+    formattedBalance(): { total: string; entries: string; withdraws: string } {
+      const balance: Balance = this.balance;
+
+      return {
+        total: balance.total.toLocaleString(),
+        entries: balance.entries.toLocaleString(),
+        withdraws: balance.withdraws.toLocaleString(),
+      };
+    },
+  },
+
+  methods: {
+    ...mapActions({
+      fetchBalance: 'transactions/fetchBalance',
+    }),
+  },
+});
 </script>
 
 <style lang="scss" src="./Transactions.styles.scss"></style>

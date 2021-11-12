@@ -1,4 +1,4 @@
-import { APITransaction } from '@/@types/Transactions';
+import { APITransaction, Balance } from '@/@types/Transactions';
 import api, { APIResponseModel } from '@/services/api/api';
 import { AxiosResponse } from 'axios';
 
@@ -20,6 +20,15 @@ const getById = async (
   transactionId: string
 ): Promise<AxiosResponse<APIResponseModel<APITransaction | null>>> => {
   return api.get(`${resource}/${transactionId}`);
+};
+
+/**
+ * Request to get the current balance and its totalizers
+ */
+const getBalanceTotalizers = async (): Promise<
+  AxiosResponse<APIResponseModel<Balance>>
+> => {
+  return api.get(`${resource}/balance/totalizers`);
 };
 
 /**
@@ -52,6 +61,7 @@ const update = (
 export default {
   getAll,
   getById,
+  getBalanceTotalizers,
   add,
   remove,
   update,
