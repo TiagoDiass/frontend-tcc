@@ -16,7 +16,7 @@
     >
       <LoadingSpinner />
     </div>
-    <div v-else class="view-content">
+    <div v-else>
       <Button category="primary" class="w-100" @click="openCreateModal">
         Cadastrar Animal
       </Button>
