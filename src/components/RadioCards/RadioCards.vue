@@ -33,7 +33,7 @@ export default Vue.extend({
 
   methods: {
     handleChangeOption(option: { label: string; value: any }) {
-      this.$emit('input', option.value);
+      this.$emit('input', this.value !== option.value ? option.value : '');
     },
   },
 });
