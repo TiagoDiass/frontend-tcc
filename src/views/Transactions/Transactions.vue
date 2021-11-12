@@ -62,7 +62,10 @@ export default Vue.extend({
       const balance: Balance = this.balance;
 
       return {
-        total: balance.total.toLocaleString(),
+        total:
+          balance.total > 0
+            ? balance.total.toLocaleString()
+            : (balance.total * -1).toLocaleString(),
         entries: balance.entries.toLocaleString(),
         withdraws: balance.withdraws.toLocaleString(),
       };
