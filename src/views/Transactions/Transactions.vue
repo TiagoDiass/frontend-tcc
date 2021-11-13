@@ -162,7 +162,7 @@
           />
 
           <div class="form-group col-12">
-            <label for="title">Valor *</label>
+            <label for="value">Valor *</label>
             <input
               id="value"
               type="number"
@@ -187,9 +187,9 @@
           </div>
 
           <div class="form-group col-12">
-            <label for="title">Data *</label>
+            <label for="date">Data *</label>
             <input
-              id="value"
+              id="date"
               type="date"
               v-model="form.date"
               class="form-control"
