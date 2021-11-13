@@ -53,7 +53,7 @@ const productsModule: Module<ProductsModuleState, null> = {
       };
     },
 
-    async updateService(_, product: APIProduct) {
+    async updateProduct(_, product: APIProduct) {
       const { status, data } = await productsRequests.update(product);
 
       return {
