@@ -3,6 +3,7 @@ import { APIService, Service } from '@/@types/Services';
 import { APIProduct, Product } from '@/@types/Products';
 import { APITransaction, Transaction } from '@/@types/Transactions';
 import { convertNumberIntoMoneyString } from '..';
+import { APIMedicine, Medicine } from '@/@types/Medicines';
 
 /**
  * It converts an APIAnimal to an Animal
@@ -99,4 +100,37 @@ export const convertAPITransactionsToTransactions = (
   apiTransactions: APITransaction[]
 ): Transaction[] => {
   return apiTransactions.map(convertAPITransactionToTransaction);
+};
+
+/**
+ * It converts an APIMedicine to a Medicine
+ */
+export const convertAPIMedicineToMedicine = (
+  apiMedicine: APIMedicine
+): Medicine => {
+  const units = {
+    mls: 'mililitro',
+    mgs: 'miligrama',
+    'pill amount': 'comprimido',
+  } as const;
+
+  return {
+    ...apiMedicine,
+    expirationDate: new Date(
+      `${apiMedicine.expirationDate} 12:00:00`
+    ).toLocaleDateString(), // converting to dd-mm-yyyy
+    amount: {
+      unit: units[apiMedicine.amount.unit],
+      value: apiMedicine.amount.value,
+    },
+  };
+};
+
+/**
+ * It converts an array of APIMedicines to an array of Medicines
+ */
+export const convertAPIMedicinesToMedicines = (
+  apiMedicines: APIMedicine[]
+): Medicine[] => {
+  return apiMedicines.map(convertAPIMedicineToMedicine);
 };
