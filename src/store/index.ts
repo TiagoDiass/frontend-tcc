@@ -2,6 +2,7 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import animalsModule from './modules/animals.store';
 import medicinesModule from './modules/medicines.store';
+import partnerClinicsModule from './modules/partnerClinics.store';
 import productsModule from './modules/products.store';
 import servicesModule from './modules/services.store';
 import transactionsModule from './modules/transactions.store';
@@ -20,5 +21,6 @@ export default new Vuex.Store({
     products: productsModule,
     transactions: transactionsModule,
     medicines: medicinesModule,
+    clinics: partnerClinicsModule,
   },
 });
