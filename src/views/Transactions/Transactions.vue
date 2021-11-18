@@ -10,7 +10,13 @@
       </p>
     </div>
 
-    <div>
+    <div
+      v-if="isLoading"
+      class="view-content d-flex justify-content-center align-items-center"
+    >
+      <LoadingSpinner />
+    </div>
+    <div v-else>
       <header class="totalizers-wrapper">
         <div class="totalizer normal">
           <p class="label">Entradas 🟢</p>
@@ -306,7 +312,6 @@
 </template>
 
 <script lang="ts">
-/* eslint-disable vue/no-unused-components */
 /* eslint-disable @typescript-eslint/no-var-requires */
 import 'vue-good-table/dist/vue-good-table.css';
 import Vue from 'vue';
@@ -354,6 +359,7 @@ export default Vue.extend({
   computed: {
     ...mapGetters({
       balance: 'transactions/getBalance',
+      isLoading: 'transactions/getIsLoading',
       transactions: 'transactions/getTransactions',
     }),
 
