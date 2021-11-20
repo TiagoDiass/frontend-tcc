@@ -4,6 +4,7 @@ import { APIProduct, Product } from '@/@types/Products';
 import { APITransaction, Transaction } from '@/@types/Transactions';
 import { convertNumberIntoMoneyString } from '..';
 import { APIMedicine, Medicine } from '@/@types/Medicines';
+import { Adoption, APIAdoption } from '@/@types/Adoptions';
 
 /**
  * It converts an APIAnimal to an Animal
@@ -133,4 +134,23 @@ export const convertAPIMedicinesToMedicines = (
   apiMedicines: APIMedicine[]
 ): Medicine[] => {
   return apiMedicines.map(convertAPIMedicineToMedicine);
+};
+
+/**
+ * It converts an APIAdoption to a Adoption
+ */
+export const convertAPIAdoptionToAdoption = (
+  apiAdoption: APIAdoption
+): Adoption => ({
+  ...apiAdoption,
+  animal: convertAPIAnimalToAnimal(apiAdoption.animal),
+});
+
+/**
+ * It converts an array of APIAdoptions to an array of Adoptions
+ */
+export const convertAPIAdoptionsToAdoptions = (
+  apiAdoptions: APIAdoption[]
+): Adoption[] => {
+  return apiAdoptions.map(convertAPIAdoptionToAdoption);
 };

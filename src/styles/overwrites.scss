@@ -38,6 +38,15 @@
       background-color: #2377ad;
     }
   }
+
+  &.btn-whatsapp {
+    color: white;
+    background-color: #25d366;
+
+    &:hover {
+      background-color: #19bd57;
+    }
+  }
 }
 
 .text-bold {

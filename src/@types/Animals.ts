@@ -4,7 +4,7 @@ export type APIAnimal = {
   type: 'dog' | 'cat';
   size: 'G' | 'M' | 'P';
   gender: 'M' | 'F';
-  pictureUrl?: string;
+  pictureUrl: string;
 };
 
 export type Animal = {
@@ -13,5 +13,5 @@ export type Animal = {
   type: '🐶 Cão' | '🐱 Gato';
   size: 'Grande' | 'Médio' | 'Pequeno';
   gender: 'Macho' | 'Femêa';
-  pictureUrl?: string;
+  pictureUrl: string;
 };

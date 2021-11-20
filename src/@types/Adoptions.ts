@@ -1,5 +1,5 @@
 import { Address } from './Address';
-import { Animal } from './Animals';
+import { Animal, APIAnimal } from './Animals';
 
 export type APIAdoption = {
   id: string;
@@ -8,7 +8,15 @@ export type APIAdoption = {
     phone: string;
     address: Address;
   };
-  animalId: Animal['id'];
+  animal: APIAnimal;
 };
 
-export type Adoption = APIAdoption;
+export type Adoption = {
+  id: string;
+  adopter: {
+    name: string;
+    phone: string;
+    address: Address;
+  };
+  animal: Animal;
+};

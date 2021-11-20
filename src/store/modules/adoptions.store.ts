@@ -1,5 +1,6 @@
 import { Adoption, APIAdoption } from '@/@types/Adoptions';
 import { adoptionsRequests } from '@/services/api/requests';
+import { convertAPIAdoptionsToAdoptions } from '@/utils/converters';
 import { Module } from 'vuex';
 
 type AdoptionsModuleState = {
@@ -25,10 +26,18 @@ const adoptionsModule: Module<AdoptionsModuleState, null> = {
     async fetchAdoptions({ commit }) {
       commit('setIsLoading', true);
 
-      const mock: Adoption[] = [
+      const mock: APIAdoption[] = [
         {
           id: 'f208d687-57ee-41e3-b5e9-0ba7a6cf0fe4',
-          animalId: '8880a8d5-c158-47e6-a3a8-2f0f6ed827f3',
+          animal: {
+            id: '1cafbb52-c964-4e24-af09-46cc988a93b8',
+            name: 'dudu',
+            type: 'dog',
+            size: 'P',
+            gender: 'M',
+            pictureUrl:
+              'https://images.unsplash.com/photo-1583511666372-62fc211f8377?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=450&ixid=MnwxfDB8MXxyYW5kb218MHx8ZG9nfHx8fHx8MTYzMjkxNjIwMw&ixlib=rb-1.2.1&q=80&utm_campaign=api-credit&utm_medium=referral&utm_source=unsplash_source&w=450',
+          },
           adopter: {
             name: 'Tiago da Costa Dias',
             phone: '19912345678',
@@ -45,7 +54,15 @@ const adoptionsModule: Module<AdoptionsModuleState, null> = {
         },
         {
           id: 'c12bf715-571a-43b6-a9d9-119ce4804b67',
-          animalId: '1a1f9f8f-dc57-4714-9706-956b3a25bc17',
+          animal: {
+            id: '1a1f9f8f-dc57-4714-9706-956b3a25bc17',
+            name: 'Beethoven',
+            type: 'dog',
+            size: 'G',
+            gender: 'M',
+            pictureUrl:
+              'http://4.bp.blogspot.com/-OrftBQM3zzY/UNhRHXoeirI/AAAAAAAAACk/8_Cqm1vQqcQ/s1600/beethoven.jpg',
+          },
           adopter: {
             name: 'José Lima',
             phone: '3580808080',
@@ -60,12 +77,37 @@ const adoptionsModule: Module<AdoptionsModuleState, null> = {
             },
           },
         },
+        {
+          id: '4cdba18e-d206-4ea8-a395-0e18f8279d3c',
+          animal: {
+            id: '53027579-2391-4110-ac19-c316e53f7fa0',
+            name: 'Garfield',
+            type: 'cat',
+            size: 'P',
+            gender: 'M',
+            pictureUrl:
+              'https://marretabionica.com.br/wp-content/uploads/2018/11/garfield-the-movie.jpg',
+          },
+          adopter: {
+            name: 'Sophia Isabelly Heloise Dias',
+            phone: '1838065248',
+            address: {
+              cep: '16025-455',
+              street: 'Rua Aguapeí',
+              complement: 'de 1682/1683 a 2398/2399',
+              district: 'Jardim do Prado',
+              city: 'Araçatuba',
+              state: 'SP',
+              number: 140,
+            },
+          },
+        },
       ];
 
       setTimeout(() => {
-        commit('setAdoptions', mock);
+        commit('setAdoptions', convertAPIAdoptionsToAdoptions(mock));
         commit('setIsLoading', false);
-      }, 2000);
+      }, 1000);
     },
 
     async addAdoption(_, adoption: Omit<APIAdoption, 'id'>) {
