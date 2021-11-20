@@ -164,7 +164,7 @@
           </div>
 
           <Select
-            id="address.state"
+            id="form.animalId"
             label="Animal adotado"
             class="col-6"
             v-model="form.animalId"
