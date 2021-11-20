@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
+import adoptionsModule from './modules/adoptions.store';
 import animalsModule from './modules/animals.store';
 import medicinesModule from './modules/medicines.store';
 import partnerClinicsModule from './modules/partnerClinics.store';
@@ -22,5 +23,6 @@ export default new Vuex.Store({
     transactions: transactionsModule,
     medicines: medicinesModule,
     clinics: partnerClinicsModule,
+    adoptions: adoptionsModule,
   },
 });

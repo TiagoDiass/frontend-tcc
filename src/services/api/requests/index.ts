@@ -5,6 +5,7 @@ import partnerClinicsRequests from './partnerClinicsRequests/partnerClinicsReque
 import productsRequests from './productsRequests/productsRequests';
 import servicesRequests from './servicesRequests/servicesRequests';
 import transactionsRequests from './transactionsRequests/transactionsRequests';
+import adoptionsRequests from './adoptionsRequests/adoptionsRequests';
 
 export {
   animalsRequests,
@@ -14,4 +15,5 @@ export {
   medicinesRequests,
   partnerClinicsRequests,
   addressesRequests,
+  adoptionsRequests,
 };
