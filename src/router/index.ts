@@ -64,6 +64,14 @@ const routes: Array<RouteConfig> = [
         /* webpackChunkName: "adoptions" */ '../views/Adoptions/Adoptions.vue'
       ),
   },
+  {
+    path: '/voluntaries',
+    name: 'Volunteers',
+    component: () =>
+      import(
+        /* webpackChunkName: "voluntaries" */ '../views/Voluntaries/Voluntaries.vue'
+      ),
+  },
 ];
 
 const router = new VueRouter({
