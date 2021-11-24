@@ -9,6 +9,11 @@
     }
   }
 
+  .modal-content {
+    max-height: 700px;
+    overflow-y: scroll;
+  }
+
   &.show {
     background-color: rgba(0, 0, 0, 0.3);
   }

@@ -72,6 +72,14 @@ const routes: Array<RouteConfig> = [
         /* webpackChunkName: "voluntaries" */ '../views/Voluntaries/Voluntaries.vue'
       ),
   },
+  {
+    path: '/helpCases',
+    name: 'HelpCases',
+    component: () =>
+      import(
+        /* webpackChunkName: "helpCases" */ '../views/HelpCases/HelpCases.vue'
+      ),
+  },
 ];
 
 const router = new VueRouter({

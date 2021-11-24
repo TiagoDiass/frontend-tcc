@@ -7,6 +7,7 @@ import servicesRequests from './servicesRequests/servicesRequests';
 import transactionsRequests from './transactionsRequests/transactionsRequests';
 import adoptionsRequests from './adoptionsRequests/adoptionsRequests';
 import voluntariesRequests from './voluntariesRequests/voluntariesRequests';
+import helpCasesRequests from './helpCasesRequests/helpCasesRequests';
 
 export {
   animalsRequests,
@@ -18,4 +19,5 @@ export {
   addressesRequests,
   adoptionsRequests,
   voluntariesRequests,
+  helpCasesRequests,
 };
