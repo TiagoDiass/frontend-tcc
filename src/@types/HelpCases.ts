@@ -3,7 +3,7 @@ export type APIHelpCase = {
   title: string;
   description: string;
   pictures: string[];
-  poolMoneyUrl: string | undefined;
+  poolMoneyUrl: string | null;
 };
 
 export type HelpCase = APIHelpCase;

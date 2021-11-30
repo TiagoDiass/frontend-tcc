@@ -246,7 +246,7 @@
             <i class="fas fa-life-ring"></i>
           </h4>
 
-          <span @click="this.isHelpCaseDetailsModalVisible = false"
+          <span @click="modals.isHelpCaseDetailsModalVisible = false"
             ><i class="fas fa-times-circle"
           /></span>
         </div>
@@ -329,7 +329,6 @@
 </template>
 
 <script lang="ts">
-/* eslint-disable vue/no-unused-components */
 /* eslint-disable @typescript-eslint/no-var-requires */
 import 'vue-good-table/dist/vue-good-table.css';
 import Vue from 'vue';
@@ -341,7 +340,6 @@ import { ActionResponse } from '@/store';
 import showToast from '@/services/toast';
 import alert from '@/services/alert';
 import { helpCasesRequests } from '@/services/api/requests';
-import { APIHelpCase } from '@/@types/HelpCases';
 
 export default Vue.extend({
   components: {
@@ -368,7 +366,7 @@ export default Vue.extend({
       title: '',
       description: '',
       pictures: [] as string[],
-      poolMoneyUrl: undefined as string | undefined,
+      poolMoneyUrl: null as string | null,
     },
   }),
 
@@ -403,7 +401,7 @@ export default Vue.extend({
         title: '',
         description: '',
         pictures: [],
-        poolMoneyUrl: undefined,
+        poolMoneyUrl: null,
       };
 
       this.modals.currentModal = 'create';
@@ -448,17 +446,7 @@ export default Vue.extend({
     },
 
     async getHelpCase(helpCaseId: string) {
-      // const { data } = await helpCasesRequests.getById(helpCaseId);
-
-      const data = {
-        data: {
-          id: '3ddb62e8-f41a-4820-9939-faf2c21b5f96',
-          title: 'Cãozinho encontrado abandonado',
-          description: `Um cãozinho foi encontrado abandonado no bairro Jardim Leopoldo, próximo ao centro da cidade, estamos tratando dele e ele está procurando por um novo lar. Ele é muito dócil e brincalhão, aparenta ter 2 anos de idade.`,
-          pictures: ['https://source.unsplash.com/800x700/?dog'],
-          poolMoneyUrl: undefined,
-        } as APIHelpCase,
-      };
+      const { data } = await helpCasesRequests.getById(helpCaseId);
 
       return data.data;
     },
